@@ -2,13 +2,36 @@ atm_vault_balance = 50000000
 user_account_balance = 10000000   
 
 def display_balances():
-    """Chức năng 1: Xem số dư tài khoản và số dư ATM phục vụ debug."""
+    """
+    Chức năng 1: Xem số dư tài khoản và số dư ATM phục vụ debug.
+
+    Hàm này sẽ in ra màn hình số dư hiện tại trong tài khoản của người dùng 
+    và số lượng tiền mặt còn lại bên trong khay chứa của cây ATM.
+
+    Đối số:
+        None
+
+    Trả về:
+        None: Hàm này chỉ in thông tin ra màn hình, không trả về giá trị.
+    """
     print("\n--- SỐ DƯ TÀI KHOẢN ---")
     print(f"Tài khoản của bạn: {user_account_balance:,} VND")
     print(f"(Debug) Tiền mặt trong ATM: {atm_vault_balance:,} VND")
 
 def deposit_money(amount):
-    """Chức năng 2: Nạp tiền vào tài khoản."""
+    """
+    Chức năng 2: Nạp tiền vào tài khoản.
+
+    Hàm kiểm tra tính hợp lệ của số tiền nạp (phải lớn hơn 0). Nếu hợp lệ, 
+    hàm sử dụng từ khóa `global` để cập nhật cộng thêm tiền vào cả tài khoản 
+    người dùng và khay chứa tiền của cây ATM.
+
+    Đối số:
+        amount (int): Số tiền khách hàng muốn nạp vào hệ thống.
+
+    Trả về:
+        bool: Trả về True nếu nạp tiền thành công, ngược lại trả về False.
+    """
     global user_account_balance, atm_vault_balance
     if amount <= 0:
         print("Số tiền không hợp lệ")
@@ -49,7 +72,7 @@ def execute_withdrawal(total_deduction, amount_to_dispense):
     Thực hiện trừ tiền vào hệ thống và in biên lai giao dịch thành công.
 
     Hàm này sử dụng từ khóa `global` để trực tiếp cập nhật và thay đổi giá trị
-    của hai biến toàn cục lưu trữ số dư. Sau khi trừ tiền thành công, hàm sẽ
+    of hai biến toàn cục lưu trữ số dư. Sau khi trừ tiền thành công, hàm sẽ
     in ra màn hình các thông tin chi tiết của giao dịch dưới dạng biên lai hóa đơn.
 
     Đối số:
@@ -68,6 +91,20 @@ def execute_withdrawal(total_deduction, amount_to_dispense):
     print(f"Số dư tài khoản còn lại: {user_account_balance:,} VND.")
 
 def main():
+    """
+    Hàm điều khiển chính (Luồng xử lý trung tâm) của chương trình SMART ATM.
+
+    Hàm khởi chạy một vòng lặp vô hạn để hiển thị Menu chức năng cho người dùng. 
+    Nó tiếp nhận lựa chọn (1-4), bắt các ngoại lệ dữ liệu đầu vào (ValueError) và 
+    gọi các hàm xử lý logic tương ứng (Xem số dư, Nạp tiền, Rút tiền). Vòng lặp 
+    chỉ kết thúc khi người dùng chọn chức năng số 4.
+
+    Đối số:
+        None
+
+    Trả về:
+        None
+    """
     while True:
         print("\n================ SMART ATM ================")
         print("1. Xem số dư")
